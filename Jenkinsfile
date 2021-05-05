@@ -23,11 +23,10 @@ pipeline{
             }
         }
 
-        // Stage3 : Publish the source code to Sonarqube
-        stage ('Deploy'){
+        // Stage3 : Publish the artefacts to Nexus
+        stage ('Publish to Nexus'){
             steps {
-                echo ' Deploying......'
-
+                nexusArtifactUploader artifacts: [[artifactId: 'TestDevOpsLab', classifier: '', file: 'target/com.TestDevOpsLab-0.0.4-SNAPSHOT.war', type: 'war']], credentialsId: 'fafa363d-a6a6-4840-a019-113d0a2307b0', groupId: 'TestDevOpsLab', nexusUrl: '3.128.170.90:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'TestDevOpsLab-SNAPSHOT', version: '0.0.4-SNAPSHOT'
             }
         }
 
