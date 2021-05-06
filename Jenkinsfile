@@ -43,10 +43,10 @@ pipeline{
                 type: 'war']], 
                 credentialsId: 'b7db6489-daa3-4be1-98d2-fbd37cec165e', 
                 groupId: "${GroupId}", 
-                nexusUrl: '3.15.161.249:8081', 
+                nexusUrl: '3.138.182.219:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
-                repository: "${NexusRepo}",
+                repository: "${NexusRepo}", 
                 version: "${Version}"
              }
             }
