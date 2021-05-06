@@ -41,12 +41,12 @@ pipeline{
                 classifier: '', 
                 file: "target/${ArtifactId}-${Version}.war", 
                 type: 'war']], 
-                credentialsId: 'fafa363d-a6a6-4840-a019-113d0a2307b0', 
+                credentialsId: 'b7db6489-daa3-4be1-98d2-fbd37cec165e', 
                 groupId: "${GroupId}", 
-                nexusUrl: '3.15.161.249:8081/', 
+                nexusUrl: '3.15.161.249:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
-                repository: "${NexusRepo}", 
+                repository: "${NexusRepo}",
                 version: "${Version}"
              }
             }
