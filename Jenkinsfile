@@ -14,22 +14,22 @@ pipeline{
     stages {
         // Specify various stage with in stages
 
-        // stage 1. Build
+        // Stage 1: Build
         stage ('Build'){
             steps {
                 sh 'mvn clean install package'
             }
         }
 
-        // Stage2 : Testing
+        // Stage 2: Testing
         stage ('Test'){
             steps {
-                echo ' testing......'
+                echo 'Testing...'
 
             }
         }
 
-        // Stage3 : Publish the artefacts to Nexus
+        // Stage 3: Publish the artefacts to Nexus
         stage ('Publish to Nexus'){
             steps {
                 script {
@@ -52,7 +52,7 @@ pipeline{
             }
         }
 
-        // // Stage4 : Print some information
+        // // Stage 4: Print some information
         stage ('Print envoronment variables'){
                     steps {
                         echo "Artifact ID is '${ArtifactId}'"
@@ -62,10 +62,10 @@ pipeline{
                     }
         }
 
-        // // Stage5 : Deploying
-        stage ('Deploy'){
+        // // Stage 5: Deploying the build artifact to Apache Tomcat
+        stage ('Deploy to Tomcat'){
             steps {
-                echo 'deploying.....'
+                echo 'Deploying...'
                 sshPublisher(publishers: 
                 [sshPublisherDesc(
                     configName: 'Ansible_Controller', 
@@ -82,7 +82,26 @@ pipeline{
                     ])
             }
         }
-
+        // // Stage 6: Deploying the build artifact to Docker
+        stage ('Deploy to Docker'){
+            steps {
+                echo 'Deploying...'
+                sshPublisher(publishers: 
+                [sshPublisherDesc(
+                    configName: 'Ansible_Controller', 
+                    transfers: [
+                        sshTransfer(
+                                cleanRemote: false,
+                                execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy_docker.yaml -i /opt/playbooks/hosts',
+                            execTimeout: 120000
+                        )
+                    ], 
+                    usePromotionTimestamp: false, 
+                    useWorkspaceInPromotion: false, 
+                    verbose: false)
+                    ])
+            }
+        }
         
         
     }
