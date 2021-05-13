@@ -38,12 +38,12 @@ pipeline{
 
                 nexusArtifactUploader artifacts: 
                 [[artifactId: "${ArtifactId}", 
-                classifier: '', 
-                file: "target/${ArtifactId}-${Version}.war", 
+                classifier: '', file: 
+                "target/${ArtifactId}-${Version}.war", 
                 type: 'war']], 
-                credentialsId: 'f33f6bd3-5c17-42e5-9f49-5a4f4c117f2c', 
+                credentialsId: '09e286d7-fda7-4ae3-b97f-d2e9831fa353', 
                 groupId: "${GroupId}", 
-                nexusUrl: '18.221.188.107:8081', 
+                nexusUrl: '18.221.16.223:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
                 repository: "${NexusRepo}", 
